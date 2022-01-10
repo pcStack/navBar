@@ -1,0 +1,43 @@
+<script>
+	export default {
+		onLaunch: function() {
+			console.log('App Launch')
+		},
+		onShow: function() {
+			console.log('App Show')
+		},
+		onHide: function() {
+			console.log('App Hide')
+		}
+	}
+</script>
+
+<style lang="scss">
+	/* 多行省略 */
+	@for $i from 1 through 5 {
+		.line-#{$i} {
+			/* #ifdef APP-NVUE */
+			// nvue下，可以直接使用lines属性，这是weex特有样式
+			lines: $i;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			/* #endif */
+			/* #ifndef APP-NVUE */
+			// vue下，单行和多行显示省略号需要单独处理
+			@if $i == 1 {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			} @else {
+				display: -webkit-box!important;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				word-break: break-all;
+				line-clamp: $i;
+				-webkit-line-clamp: $i;
+				-webkit-box-orient: vertical!important;
+			}
+			/* #endif */
+		}
+	}
+</style>
